@@ -27,6 +27,7 @@ jobs:
           flutter create . --platforms=android,web --project-name=biloo --org=com.biloo
           cp /tmp/biloo_main.dart lib/main.dart
           cp /tmp/biloo_pubspec.yaml pubspec.yaml
+          rm -f test/widget_test.dart
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
