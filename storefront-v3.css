@@ -1,0 +1,124 @@
+/* Biloo compact luxury storefront — mobile-first product scale */
+
+/* Home merchandise rail: smaller, denser, premium Shopify-like cards */
+.rail{
+  gap:12px;
+}
+.rail .product-card{
+  width:146px;
+  min-width:146px;
+}
+.rail .product-image{
+  height:auto;
+  aspect-ratio:4/5;
+  border-radius:14px;
+}
+.rail .product-meta{
+  padding:9px 1px 2px;
+}
+.rail .product-meta h3{
+  font-size:13px;
+  line-height:17px;
+  margin:4px 0 3px;
+}
+.rail .price{
+  font-size:14px;
+}
+.rail .rating{
+  font-size:10px;
+  margin-bottom:4px;
+}
+
+/* Explore/catalog: classic two-up luxury-commerce rhythm */
+.search-results{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px 12px;
+}
+.search-results .product-card{
+  max-width:210px;
+  justify-self:stretch;
+}
+.search-results .product-image{
+  width:100%;
+  height:auto;
+  aspect-ratio:4/5;
+  max-height:230px;
+  border-radius:14px;
+}
+.product-image img{
+  object-position:center 38%;
+}
+
+/* Keep controls visually subordinate to the merchandise */
+.product-image .heart{
+  width:38px;
+  height:38px;
+  top:5px;
+  right:5px;
+}
+
+/* Categories should read as navigation, not primary content */
+.category{
+  min-width:66px;
+}
+.category img{
+  width:66px;
+  height:66px;
+}
+
+/* Product detail: restrained gallery instead of near full-screen photo */
+.detail-gallery{
+  margin:0;
+  display:grid;
+  place-items:center;
+  background:color-mix(in srgb,var(--stone) 46%,var(--surface));
+  border-radius:18px;
+  overflow:hidden;
+  max-height:54dvh;
+}
+.detail-gallery img{
+  width:100%;
+  max-width:520px;
+  height:min(54dvh,520px);
+  aspect-ratio:auto;
+  object-fit:contain;
+  object-position:center;
+}
+.detail-info{
+  padding-top:20px;
+}
+
+/* Editorial remains aspirational but no longer dominates several screens */
+.editorial img{
+  aspect-ratio:4/5;
+  max-height:520px;
+  object-position:center 35%;
+}
+
+@media (max-width:430px){
+  :root{--gutter:20px}
+  .rail{padding-left:20px;padding-right:20px}
+  .rail .product-card{width:138px;min-width:138px}
+  .section{margin-top:44px}
+  .search-results{padding-left:20px;padding-right:20px;gap:20px 10px}
+  .search-results .product-image{max-height:214px}
+  .product-meta .brand{font-size:10px}
+  .product-meta h3{font-size:13px;line-height:17px}
+  .price{font-size:14px}
+  .strike{font-size:11px}
+  .detail-gallery{max-height:48dvh}
+  .detail-gallery img{height:min(48dvh,470px)}
+}
+
+@media (max-width:360px){
+  .rail .product-card{width:128px;min-width:128px}
+  .search-results{gap:18px 9px}
+  .search-results .product-image{max-height:196px}
+}
+
+@media (min-width:700px){
+  .rail .product-card{width:164px;min-width:164px}
+  .search-results{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 18px}
+  .search-results .product-card{max-width:none}
+  .search-results .product-image{max-height:300px}
+}
