@@ -18,9 +18,9 @@ class _ExploreState extends ConsumerState<Explore> {
       body: CustomScrollView(slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24,22,24,16),
+            padding: const EdgeInsets.fromLTRB(20,22,20,16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('DISCOVER', style: micro(c)), Text('Explore', style: display(c)), const SizedBox(height: 20),
+              Text('DISCOVER', style: micro(c)), Text('Explore', style: display(c)), const SizedBox(height: 18),
               TextField(decoration: const InputDecoration(labelText: 'Search pieces and brands', prefixIcon: Icon(Icons.search)), onChanged: (v) { timer?.cancel(); timer = Timer(const Duration(milliseconds: 180), () => setState(() => q = v)); }),
             ]),
           ),
@@ -28,7 +28,19 @@ class _ExploreState extends ConsumerState<Explore> {
         if (list.isEmpty)
           SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.all(48), child: Column(children: [Text('Nothing exact for “$q”', style: title(c)), const SizedBox(height: 8), Text('Try tailoring, knitwear or relaxed essentials.', style: body(c))])))
         else
-          SliverPadding(padding: const EdgeInsets.fromLTRB(24,8,24,120), sliver: SliverGrid.builder(itemCount: list.length, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 14, mainAxisSpacing: 22, childAspectRatio: .52), itemBuilder: (_, i) => ProductCard(list[i]))),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20,8,20,120),
+            sliver: SliverGrid.builder(
+              itemCount: list.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 20,
+                childAspectRatio: .59,
+              ),
+              itemBuilder: (_, i) => ProductCard(list[i]),
+            ),
+          ),
       ]),
     );
   }
@@ -47,12 +59,30 @@ class ProductPage extends ConsumerWidget {
   @override
   Widget build(BuildContext c, WidgetRef r) {
     final s = r.watch(appProvider), sel = s.sizes[p.id] ?? p.match;
+    final dark = Theme.of(c).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(),
       body: ListView(padding: const EdgeInsets.only(bottom: 100), children: [
-        Hero(tag: 'product-${p.id}', child: InteractiveViewer(maxScale: 4, child: Image.network(p.image, height: 470, width: double.infinity, fit: BoxFit.cover))),
         Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            height: 360,
+            decoration: BoxDecoration(
+              color: dark ? const Color(0xFF141414) : const Color(0xFFF1EEE8),
+              borderRadius: BorderRadius.circular(18),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Hero(
+              tag: 'product-${p.id}',
+              child: InteractiveViewer(
+                maxScale: 4,
+                child: Image.network(p.image, width: double.infinity, height: 360, fit: BoxFit.contain),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('${p.brand} · ★ 4.8', style: micro(c).copyWith(color: T.muted)), const SizedBox(height: 8),
             Text(p.name, style: title(c)), const SizedBox(height: 10),
