@@ -8,14 +8,22 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <meta name="description" content="Biloo — Wear the Moment. A quiet-luxury fashion edit matched to your fit." />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="//images.unsplash.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="modulepreload" href="/app.v2.js" />
+  <style>
+    html,body{margin:0;min-height:100%;background:#F8F7F4;color:#000}
+    .boot{min-height:100dvh;display:grid;place-items:center}.boot-brand{font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.28em;opacity:.7}
+    @media(prefers-color-scheme:dark){html,body{background:#000;color:#F8F7F4}}
+  </style>
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/perf.css" />
   <title>Biloo — Wear the Moment</title>
 </head>
 <body>
-  <div id="app" aria-live="polite"></div>
+  <div id="app" aria-live="polite"><div class="boot" aria-label="Loading Biloo"><div class="boot-brand">BILOO</div></div></div>
   <div id="toast-root" aria-live="assertive" aria-atomic="true"></div>
   <script src="/theme.js"></script>
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/app.v2.js"></script>
 </body>
 </html>
