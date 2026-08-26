@@ -61,7 +61,7 @@ class ProductPage extends ConsumerWidget {
             const SizedBox(height: 30), const Text('Size'), const SizedBox(height: 10),
             Wrap(spacing: 8, runSpacing: 8, children: p.sizes.map((x) => ChoiceChip(label: Text(x), selected: sel == x, showCheckmark: false, onSelected: (_) => r.read(appProvider.notifier).size(p.id, x))).toList()),
             const SizedBox(height: 12),
-            Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: T.accent.withOpacity(.22), borderRadius: BorderRadius.circular(16)), child: Text('Size ${p.match} · matched to your profile', style: const TextStyle(fontSize: 12))),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: T.accent.withValues(alpha: .22), borderRadius: BorderRadius.circular(16)), child: Text('Size ${p.match} · matched to your profile', style: const TextStyle(fontSize: 12))),
             const SizedBox(height: 28), const Text('Delivery tomorrow', style: TextStyle(fontWeight: FontWeight.w600)),
             Text('Order before the local fulfillment cutoff.', style: body(c).copyWith(color: T.muted)),
           ]),
