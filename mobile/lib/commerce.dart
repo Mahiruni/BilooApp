@@ -88,8 +88,10 @@ class _CheckoutState extends State<Checkout> {
             setState(() => loading = true);
             Future.delayed(const Duration(milliseconds: 650), () {
               if (!mounted) return;
-              widget.ref.read(appProvider.notifier).clear(); HapticFeedback.mediumImpact(); Navigator.pop(c);
-              showDialog(context: c, builder: (d) => AlertDialog(title: const Text('Order placed'), content: const Text('Delivery expected tomorrow.\n\nThis is a demo checkout; no money was charged.'), actions: [TextButton(onPressed: () => Navigator.pop(d), child: const Text('Continue'))]));
+              widget.ref.read(appProvider.notifier).clear();
+              HapticFeedback.mediumImpact();
+              Navigator.pop(context);
+              showDialog(context: context, builder: (d) => AlertDialog(title: const Text('Order placed'), content: const Text('Delivery expected tomorrow.\n\nThis is a demo checkout; no money was charged.'), actions: [TextButton(onPressed: () => Navigator.pop(d), child: const Text('Continue'))]));
             });
           }),
         ]),
