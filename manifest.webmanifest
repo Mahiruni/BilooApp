@@ -1,0 +1,10 @@
+{
+  "name": "Biloo",
+  "short_name": "Biloo",
+  "description": "Wear the Moment",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F7F4",
+  "theme_color": "#F8F7F4",
+  "icons": []
+}
