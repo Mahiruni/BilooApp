@@ -53,7 +53,7 @@ class AppController extends StateNotifier<AppState> {
   void start(){state=state.copyWith(started:true);_save();} void login(){state=state.copyWith(auth:true);_save();} void logout(){state=state.copyWith(auth:false);_save();} void tab(int i){state=state.copyWith(tab:i);_save();}
   void wish(String id){final x={...state.wish};x.contains(id)?x.remove(id):x.add(id);state=state.copyWith(wish:x);_save();HapticFeedback.lightImpact();}
   void size(String id,String s){state=state.copyWith(sizes:{...state.sizes,id:s});_save();HapticFeedback.lightImpact();}
-  void add(String id,{int delta=1}){final m={...state.cart};m[id]=((m[id]??0)+delta).clamp(0,99);if(m[id]==0)m.remove(id);state=state.copyWith(cart:m);_save();HapticFeedback.lightImpact();}
+  void add(String id,{int delta=1}){final m={...state.cart};m[id]=((m[id]??0)+delta).clamp(0,99).toInt();if(m[id]==0)m.remove(id);state=state.copyWith(cart:m);_save();HapticFeedback.lightImpact();}
   void clear(){state=state.copyWith(cart:{});_save();} void measurement(String k,String v){state=state.copyWith(measure:{...state.measure,k:v});_save();}
 }
 
