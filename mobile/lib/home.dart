@@ -71,7 +71,7 @@ class ProductCard extends ConsumerWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(children: [
             Hero(tag: 'product-${p.id}', child: ClipRRect(borderRadius: BorderRadius.circular(18), child: Image.network(p.image, height: 224, width: 168, fit: BoxFit.cover))),
-            Positioned(right: 6, top: 6, child: IconButton(style: IconButton.styleFrom(backgroundColor: Colors.white.withOpacity(.86), foregroundColor: Colors.black), onPressed: () => r.read(appProvider.notifier).wish(p.id), icon: Icon(w ? Icons.favorite : Icons.favorite_border, size: 20))),
+            Positioned(right: 6, top: 6, child: IconButton(style: IconButton.styleFrom(backgroundColor: Colors.white.withValues(alpha: .86), foregroundColor: Colors.black), onPressed: () => r.read(appProvider.notifier).wish(p.id), icon: Icon(w ? Icons.favorite : Icons.favorite_border, size: 20))),
           ]),
           const SizedBox(height: 9),
           Text(p.brand, style: micro(c).copyWith(color: T.muted)),
