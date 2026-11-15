@@ -1,0 +1,47 @@
+name: One-time obsolete build artifact cleanup
+on:
+  push:
+    branches: [maintenance/obsolete-artifact-cleanup-20261116]
+    paths:
+      - '.github/workflows/obsolete-artifact-cleanup-once.yml'
+permissions:
+  actions: write
+  contents: read
+jobs:
+  cleanup:
+    if: github.repository == 'Mahiruni/BilooApp' && github.ref == 'refs/heads/maintenance/obsolete-artifact-cleanup-20261116'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete only the verified old generated build artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          items = [{"id":9615944967,"run":32994349731,"bytes":14116003,"name":"biloo-flutter-web","branch":"main","date":"2026-08-26"},{"id":9615981630,"run":32994454894,"bytes":14116005,"name":"biloo-flutter-web","branch":"main","date":"2026-08-26"}]
+          root = "https://api.github.com/repos/Mahiruni/BilooApp/actions/artifacts/"
+          headers = {"Authorization":"Bearer "+os.environ["GH_TOKEN"],"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","User-Agent":"obsolete-artifact-maintenance"}
+          def req(id,method):
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(root+str(id),headers=headers,method=method),timeout=30) as r:
+                      return r.status,json.loads(r.read()) if method=="GET" else None
+              except urllib.error.HTTPError as e:
+                  if e.code==404: return 404,None
+                  raise
+          verified=[]
+          for x in items:
+              status,a=req(x["id"],"GET")
+              if status==404: print("Already absent:",x["id"]); continue
+              run=a.get("workflow_run") or {}
+              assert a["id"]==x["id"] and a["name"]==x["name"] and a["size_in_bytes"]==x["bytes"] and not a["expired"] and run.get("id")==x["run"] and run.get("head_branch")==x["branch"] and a["created_at"][:10]==x["date"],"Metadata mismatch; no deletions"
+              verified.append(x)
+          total=0
+          for x in verified:
+              status,_=req(x["id"],"DELETE")
+              assert status in (204,404)
+              assert req(x["id"],"GET")[0]==404
+              if status==204: total+=x["bytes"]
+              print("Deleted and verified:",x["id"],x["bytes"])
+          print("Verified deleted bytes:",total)
+          PY
